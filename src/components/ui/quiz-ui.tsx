@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Button as ShadcnButton } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 
@@ -22,7 +21,7 @@ export function QuizContainer({ children, className }: React.HTMLAttributes<HTML
 
 export function QuizHeader({ children, className }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h2 className={cn("font-sans font-bold text-lg h-32 flex items-center justify-center text-center w-full max-w-[400px]", className)}>
+    <h2 className={cn("font-sans font-bold text-lg h-32 flex flex-col items-center justify-center text-center w-full max-w-[400px]", className)}>
       {children}
     </h2>
   );
@@ -59,7 +58,7 @@ interface QuizOptionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 export function QuizOption({ children, className, ...props }: QuizOptionProps) {
   return (
     <button
-      className={cn("bg-white text-[#FF5B34] rounded-lg p-5 h-24 flex items-center justify-center text-center font-medium text-sm hover:bg-[#FFDCD3] transition-colors cursor-pointer", className)}
+      className={cn("bg-white text-[#FF5B34] rounded-lg p-5 h-24 flex items-center justify-center text-center font-medium text-sm hover:bg-[#FFDCD3] transition-colors cursor-pointer active:scale-95", className)}
       {...props}
     >
       {children}
@@ -131,18 +130,36 @@ interface QuizButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 
 export function QuizButton({ children, variant = "primary", className, ...props }: QuizButtonProps) {
   return (
-    <ShadcnButton
+    <button
       className={cn(
-        "rounded-lg p-4 font-bold text-center flex-1 transition-colors",
+        "rounded-lg p-4 font-bold text-center w-full transition-colors active:scale-95",
         variant === "primary" 
           ? "bg-white text-[#FF5B34] hover:bg-[#FFDCD3]" 
-          : "bg-white/20 text-white border-white",
+          : "bg-white/20 text-white border-white border",
         className
       )}
-      variant={variant === "primary" ? "default" : "outline"}
       {...props}
     >
       {children}
-    </ShadcnButton>
+    </button>
   );
 } 
+
+
+export function QuizResultContainer({
+  children,
+  className,
+}: React.HTMLAttributes<HTMLDivElement>) {
+  return (
+    <div
+      className={cn(
+        "flex flex-col items-center justify-between min-h-screen bg-[#ff5e29] text-[#FCF3EC] pt-8 pb-12 px-4 overflow-hidden",
+        className
+      )}
+    >
+      <div className="w-full max-w-[400px] flex flex-col items-center justify-between flex-1">
+        {children}
+      </div>
+    </div>
+  );
+}
