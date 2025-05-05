@@ -1,223 +1,206 @@
 {
-  "title": "Food Personality Quiz",
-  "description": "Discover your food personality type based on your choices!",
+  "title": "Forkcast: What's Your Food Persona?",
+  "description": "Whisk away to a cloud-top world of snacks and surprises—where cravings lead and your foodsona awaits!",
   "questions": [
     {
       "id": 1,
-      "text": "Q1/12: You wake up in a cozy little cookie cabin in the clouds. Your stomach grumbles. What do you do first?",
+      "text": "You wake up in a cozy little cookie cabin in the clouds. Your stomach grumbles. What do you do first?",
       "options": [
         {
           "id": "A",
           "text": "Dash outside barefoot to find the first food stand that's open—who has time to wait?",
-          "type": "Impulsive"
+          "type": "Flash Fry"
         },
         {
           "id": "B",
           "text": "Take a deep breath, stretch, and boil some herbs for morning tea—let's not forget we're in a house made of literal food.",
-          "type": "Mindful"
+          "type": "Namastew"
         }
       ]
     },
     {
       "id": 2,
-      "text": "Q2/12: The clouds part and reveal a floating market of foods from around the world. You only have time for one stop.",
+      "text": "The clouds part and reveal a floating market of foods from around the world. You only have time for one stop.",
       "options": [
         {
           "id": "A",
           "text": "The one stall that sells things you've never even heard of—mystery is delicious.",
-          "type": "Adventurous"
+          "type": "Loco Taco"
         },
         {
           "id": "B",
-          "text": "The corner offering 3 for 1 deals plus samples? Say less.",
-          "type": "Practical"
+          "text": "The corner offering three-for-one deals, loyalty stamps, and free samples? Say less.",
+          "type": "Big Bucks Bao"
         }
       ]
     },
     {
       "id": 3,
-      "text": "Q3/12: While shopping in the floating market, someone invites you to lunch with a group of new people. How do you respond?",
+      "text": "While shopping in the floating market, someone invites you to lunch with a group of new people. How do you respond?",
       "options": [
         {
           "id": "A",
-          "text": "You bet! I'll bring snacks and juicy stories—let's make it a feast to remember!",
-          "type": "Extrovert"
+          "text": "Bet! I'll bring extra snacks and juicy tea with me",
+          "type": "Talkayaki"
         },
         {
           "id": "B",
-          "text": "Where are we going? What's on the menu? Let me do a quick vibes check.",
-          "type": "Cautious"
+          "text": "Stranger danger but agrees out of peer pressure.",
+          "type": "Boba Babe"
         }
       ]
     },
     {
       "id": 4,
-      "text": "Q4/12: During lunch, you're offered two enchanted utensils. One is a fork that speeds up every meal, and the other is a spoon that makes each bite last longer.",
+      "text": "During lunch, you're offered two enchanted utensils. One is a fork that speeds up every meal, and the other is a spoon that makes each bite last longer.",
       "options": [
         {
           "id": "A",
-          "text": "Fork — please, time waits for no snack.",
-          "type": "Efficient"
+          "text": "Fork, please—time waits for no snack.",
+          "type": "Flash Fry"
         },
         {
           "id": "B",
-          "text": "Spoon — food should be savored and enjoyed.",
-          "type": "Indulgent"
+          "text": "Spoon—food should be savored and enjoyed.",
+          "type": "Namastew"
         }
       ]
     },
     {
       "id": 5,
-      "text": "Q5/12: After a hearty meal, you decide to explore the town. How do you settle in?",
+      "text": "After a hearty meal, you decide to explore the town. How do you settle in?",
       "options": [
         {
           "id": "A",
-          "text": "Scout the area for essentials. No need to overbuy; you've got what you need.",
-          "type": "Minimalist"
+          "text": "Scout the area for the essentials—best prices and smart buys only.",
+          "type": "Big Bucks Bao"
         },
         {
           "id": "B",
-          "text": "Dive headfirst into the dessert lagoon because, let's be real, new places = new stress.",
-          "type": "Comfort-Seeker"
+          "text": "Stick to the main road…Oooo is that bubble tea?",
+          "type": "Boba Babe"
         }
       ]
     },
     {
       "id": 6,
-      "text": "Q6/12: During your exploration, you find a glowing map. One path leads to a mystery feast, the other to a well-reviewed diner.",
+      "text": "During your exploration, you find a glowing map. One path leads to a mystery feast, the other to a well-reviewed diner.",
       "options": [
         {
           "id": "A",
           "text": "Let's go off the grid—I want food I've never seen before.",
-          "type": "Risk-Taker"
+          "type": "Loco Taco"
         },
         {
           "id": "B",
-          "text": "I'm going where the stars are high, the prices are low, and the portions are ✨respectable✨.",
-          "type": "Value-Conscious"
+          "text": "I'm going where the ratings are high, the portions are respectable, and the reviews are thorough.",
+          "type": "Namastew"
         }
       ]
     },
     {
       "id": 7,
-      "text": "Q7/12: Excited about your new findings, you can't wait to share this with your friends. How would you break the news?",
+      "text": "Excited about your new findings, you can't wait to share this with your friends. How would you break the news?",
       "options": [
         {
           "id": "A",
-          "text": "Let's go together! There's something for everyone there!",
-          "type": "Community-Oriented"
+          "text": "Let's round everyone up! Group adventure, group bites, group pics!",
+          "type": "Talkayaki"
         },
         {
           "id": "B",
-          "text": "Suggest takeaway—bundle deals hit different when shared.",
-          "type": "Resourceful"
+          "text": "Suggest takeaway—bundle deals and party packs hit different when shared.",
+          "type": "Big Bucks Bao"
         }
       ]
     },
     {
       "id": 8,
-      "text": "Q8/12: While walking back to your cabin, the Doof Police stops you. \"Unauthorized snack detected. Show your verification.\"",
+      "text": "While walking back to your cabin, the Doof Police stops you. \"Unauthorized snack detected. Show your verification.\"",
       "options": [
         {
           "id": "A",
-          "text": "Present your perfectly filed receipts, coupons, and cloud tax exemption form.",
-          "type": "Organized"
+          "text": "*Sigh* Calmly explain your situation and predicament",
+          "type": "Namastew"
         },
         {
           "id": "B",
-          "text": "Panics and crash out.",
-          "type": "Spontaneous"
+          "text": "Act blur and try to gaslight the police",
+          "type": "Loco Taco"
         }
       ]
     },
     {
       "id": 9,
-      "text": "Q9/12: Regardless, you've been captured and brought to the Cotton Candy King. To lighten your sentence, you:",
+      "text": "Regardless, you've been captured and brought to the Cotton Candy King. To lighten your sentence, you:",
       "options": [
         {
           "id": "A",
           "text": "Tear up, sob dramatically, and offer the King a sweet bribe.",
-          "type": "Emotional"
+          "type": "Boba Babe"
         },
         {
           "id": "B",
           "text": "Sweet talk your way through it with maximum charm.",
-          "type": "Charismatic"
+          "type": "Talkayaki"
         }
       ]
     },
     {
       "id": 10,
-      "text": "Q10/12: \"Relax\" the King booms. \"I see you wish to return home. What do you miss most?\"",
+      "text": "\"Relax,\" the King booms. \"I see you wish to return home. What do you miss most?\"",
       "options": [
         {
           "id": "A",
-          "text": "My friends and family. I miss the little things—shared meals, inside jokes, warm hugs.",
-          "type": "Relationship-Focused"
+          "text": "My friends, my family, the memories I've forged with everyone.",
+          "type": "Talkayaki"
         },
         {
           "id": "B",
-          "text": "I've got unfinished biz, adventures waiting, work to complete. There's still so much left to do!",
-          "type": "Goal-Oriented"
+          "text": "Adventure! New places, new foods, unfinished business!",
+          "type": "Loco Taco"
         }
       ]
     },
     {
       "id": 11,
-      "text": "Q11/12: The King chuckles in acknowledgement. \"Before I send you off, I shall grant you one magical food wish. What'll it be, traveler?\"",
+      "text": "The King chuckles in acknowledgment. \"Before I send you off, I shall grant you one magical food wish. What'll it be, traveler?\"",
       "options": [
         {
           "id": "A",
-          "text": "Teleporting tiffin box that brings you rare and spicy eats from every corner of the globe—fresh, fast, and full of surprises.",
-          "type": "Variety-Seeker"
+          "text": "A teleporting tiffin box that zaps rare eats from every corner of the globe—fresh and fast.",
+          "type": "Flash Fry"
         },
         {
           "id": "B",
-          "text": "A magical wallet that refills itself with food vouchers, buddy bundles, and buy 1 get 1 deals. There's always enough to go around.",
-          "type": "Generous"
+          "text": "A magical wallet that refills itself with 1 for 1 bundles, food vouchers, and half-price coupons forever.",
+          "type": "Big Bucks Bao"
         }
       ]
     },
     {
       "id": 12,
-      "text": "Q12/12: At last, you're back home after an exhausting, flavor-filled journey. Where do you recharge?",
+      "text": "At last, you're back home after an exhausting, flavor-filled journey. Where do you recharge?",
       "options": [
         {
           "id": "A",
-          "text": "24hr fast food joint. Quick, convenient and nostalgic.",
-          "type": "Convenience-Lover"
+          "text": "24hr fast food joint—quick, convenient, chaotic, and comforting.",
+          "type": "Flash Fry"
         },
         {
           "id": "B",
           "text": "A cinnamon-scented bakery where everything feels like a warm hug.",
-          "type": "Comfort-Seeker"
+          "type": "Boba Babe"
         }
       ]
     }
   ],
   "results": {
-    "Impulsive": "You're spontaneous and eager to try new things! You follow your gut and make quick decisions when it comes to food.",
-    "Mindful": "You appreciate the ritual of eating and take time to enjoy each bite. Food is an experience to be savored.",
-    "Adventurous": "You're always on the hunt for unique flavors and exotic dishes. Food is an adventure for you!",
-    "Practical": "You value good deals and proven favorites. Why risk disappointment when you know what works?",
-    "Extrovert": "Social dining is your jam! Food tastes better when shared with others.",
-    "Cautious": "You like to know what you're getting into before committing. Research first, eat later.",
-    "Efficient": "Time is precious, and meals are functional. You appreciate food but don't dwell on it.",
-    "Indulgent": "You believe in savoring every bite and making meals last. Food is one of life's great pleasures.",
-    "Minimalist": "You keep things simple and focus on essentials. No frills needed.",
-    "Comfort-Seeker": "Food is comfort for you. Sweet treats and familiar flavors help you feel at home.",
-    "Risk-Taker": "Unknown cuisine? Weird combinations? You're first in line! Food should be an adventure.",
-    "Value-Conscious": "You appreciate quality and quantity at a fair price. Smart food choices matter.",
-    "Community-Oriented": "Sharing food experiences brings you joy. The more, the merrier!",
-    "Resourceful": "You find clever ways to maximize your food experience and share the bounty.",
-    "Organized": "You plan ahead and keep everything in order. No surprises in your food routine.",
-    "Spontaneous": "You wing it when it comes to food! Planning just gets in the way of the experience.",
-    "Emotional": "Food connects deeply to your feelings. Comfort food is your emotional support.",
-    "Charismatic": "You can charm your way into any food situation. Social connections matter.",
-    "Relationship-Focused": "Food is about the people you share it with. Connections matter most.",
-    "Goal-Oriented": "Food fuels your next adventure or task. It's important but not the main focus.",
-    "Variety-Seeker": "You crave diversity in your diet. The same meal twice? Not if you can help it!",
-    "Generous": "Sharing food brings you joy. There's always room for one more at your table.",
-    "Convenience-Lover": "Quick, accessible food fits your busy lifestyle. Efficiency matters."
+    "Flash Fry": "Efficiency is your middle name! You value quick, convenient food that fuels your busy lifestyle without slowing you down.",
+    "Namastew": "You're mindful about your food choices and appreciate the ritual of eating. You take time to savor flavors and enjoy each bite.",
+    "Loco Taco": "You're always on the hunt for new and exciting flavors! Adventure and novelty drive your food choices and you're the first to try something unusual.",
+    "Big Bucks Bao": "You're a savvy foodie who knows how to get the best value! You appreciate good deals and love to share your food finds with others.",
+    "Talkayaki": "Social dining is your thing! You love sharing meals with friends and family, and food experiences are about the connections you make.",
+    "Boba Babe": "Food is your comfort zone! Sweet treats and familiar flavors help you feel at home, and you're not afraid to indulge when needed."
   }
 }

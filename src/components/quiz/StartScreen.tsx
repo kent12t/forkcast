@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import quizData from "@/data/quiz.json";
 import {
   StartContainer,
   StartHeader,
@@ -20,20 +21,20 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   return (
     <StartContainer>
       <header className="mt-8">
-        <StartHeader>Food Persona</StartHeader>
+        <StartHeader>{quizData.title}</StartHeader>
         <StartDescription>
-          Whisk away to a cloud-top world of snacks and surprises where cravings lead and your food persona awaits!
+          {quizData.description}
         </StartDescription>
       </header>
       
       <div className="flex-1 flex items-center justify-center">
         <QuizImageContainer>
-          <QuizImageFrame>
+          <QuizImageFrame className="h-64 w-64 relative">
             <Image 
-              src="/fries.png" 
-              alt="Food Persona mascot"
-              width={200}
-              height={200}
+              src="/cabin.png" 
+              alt="Cookie cabin in the clouds"
+              fill
+              sizes="(max-width: 768px) 100vw, 256px"
               className="object-contain"
               priority
             />

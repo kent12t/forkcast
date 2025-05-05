@@ -4,40 +4,17 @@ import React from "react";
 import Image from "next/image";
 import { useQuiz } from "./QuizContext";
 import {
-  QuizHeader,
-  QuizImageContainer,
-  QuizImageFrame,
   QuizButton,
-  ButtonContainer,
-  QuizResultContainer,
 } from "@/components/ui/quiz-ui";
 
-// Results data with descriptions for each personality
-const resultDescriptions: { [key: string]: { description: string } } = {
-  "Big Bucks Bun": {
-    description:
-      "You're a savvy foodie who knows how to get the best value! You appreciate good deals and love to share your food finds with others.",
-  },
-  "Yappy Sushi": {
-    description:
-      "Social dining is your thing! You love sharing meals with friends and family, and food experiences are about the connections you make.",
-  },
-  "Loco Taco": {
-    description:
-      "You're always on the hunt for new and exciting flavors! Adventure and novelty drive your food choices and you're the first to try something unusual.",
-  },
-  "Flash Fry": {
-    description:
-      "Efficiency is your middle name! You value quick, convenient food that fuels your busy lifestyle without slowing you down.",
-  },
-  "Boba Babe": {
-    description:
-      "Food is your comfort zone! Sweet treats and familiar flavors help you feel at home, and you're not afraid to indulge when needed.",
-  },
-  "Steamy Sage": {
-    description:
-      "You're mindful about your food choices and appreciate the ritual of eating. You take time to savor flavors and enjoy each bite.",
-  },
+// Image mapping for each personality
+const imageMapping: { [key: string]: string } = {
+  "Big Bucks Bao": "/bao-optimised.png",
+  "Talkayaki": "/yaki-optimised.png",
+  "Loco Taco": "/taco-optimised.png",
+  "Flash Fry": "/fries-optimised.png",
+  "Boba Babe": "/boba-optimised.png",
+  "Namastew": "/stew-optimised.png",
 };
 
 export const QuizResult: React.FC = () => {
@@ -47,51 +24,60 @@ export const QuizResult: React.FC = () => {
     return null;
   }
 
-  const resultData = resultDescriptions[result] || {
-    description: "You have a unique food personality!",
-  };
+  const imageSrc = imageMapping[result] || "/fries-optimised.png";
 
   const handleBackToHome = () => {
     window.location.href = "/";
   };
 
   return (
-    <QuizResultContainer>
-      <QuizHeader>
-        Your Food Persona is...
-        <h1 className="text-3xl font-bold mb-4 text-center max-w-[400px] w-full">
-          {result}
-        </h1>
-      </QuizHeader>
+    <div className="flex flex-col items-stretch min-h-screen bg-[#ff5e29] text-[#FCF3EC] px-4 overflow-hidden">
+      {/* Top aligned header */}
+      <div className="pt-6">
+        <p className="text-center font-medium font-poppins text-base sm:text-lg">
+          Feel free to share your result!<br />
+          #Foodpersona
+        </p>
+      </div>
+      
+      {/* Middle flex container for image */}
+      <div className="flex-1 flex items-center justify-center w-full px-4 py-4">
+        <div className="w-full mx-auto">
+          <div className="relative w-full h-0" style={{ paddingBottom: '150%' }}>
+            <div className="absolute inset-0">
+              <Image
+                src={imageSrc}
+                alt={`${result} food persona`}
+                sizes="(max-width: 640px) 100vw"
+                fill
+                priority
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Bottom aligned buttons */}
+      <div className="pb-4">
+        <div className="flex flex-col gap-2 w-full max-w-32 sm:max-w-36 mx-auto">
+          <QuizButton 
+            onClick={resetQuiz} 
+            variant="primary" 
+            className="w-full py-2 text-sm sm:text-base"
+          >
+            Retake
+          </QuizButton>
 
-      <QuizImageContainer>
-        <QuizImageFrame>
-          <Image
-            src="/fries.png"
-            alt={`${result} food persona`}
-            width={200}
-            height={200}
-            className="object-contain"
-          />
-        </QuizImageFrame>
-      </QuizImageContainer>
-
-      <p className="text-center my-6 max-w-[400px] w-full">
-        {resultData.description}
-      </p>
-      <ButtonContainer>
-        <QuizButton onClick={resetQuiz} variant="primary" className="w-full">
-          Take Quiz Again
-        </QuizButton>
-
-        <QuizButton
-          variant="outline"
-          onClick={handleBackToHome}
-          className="w-full"
-        >
-          Back to Home
-        </QuizButton>
-      </ButtonContainer>
-    </QuizResultContainer>
+          <QuizButton
+            variant="outline"
+            onClick={handleBackToHome}
+            className="w-full py-2 text-sm sm:text-base"
+          >
+            Try the app
+          </QuizButton>
+        </div>
+      </div>
+    </div>
   );
 };

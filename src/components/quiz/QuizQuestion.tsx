@@ -28,13 +28,14 @@ export const QuizQuestion: React.FC = () => {
       <QuizHeader>{question.text}</QuizHeader>
       
       <QuizImageContainer>
-        <QuizImageFrame>
+        <QuizImageFrame className="h-64 w-64 relative">
           <Image 
             src="/cabin.png" 
             alt="Cookie cabin in the clouds"
-            width={240}
-            height={240}
+            fill
+            sizes="(max-width: 768px) 100vw, 256px"
             className="object-contain"
+            priority
           />
         </QuizImageFrame>
       </QuizImageContainer>

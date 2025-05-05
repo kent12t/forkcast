@@ -33,32 +33,15 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isComplete, setIsComplete] = useState(false);
   const [result, setResult] = useState<string | null>(null);
 
-  // Personality type mapping
-  const personalityMapping: { [key: string]: string } = {
-    "Impulsive": "Flash Fry",
-    "Mindful": "Steamy Sage",
-    "Adventurous": "Loco Taco",
-    "Practical": "Big Bucks Bun",
-    "Extrovert": "Yappy Sushi",
-    "Cautious": "Steamy Sage",
-    "Efficient": "Flash Fry",
-    "Indulgent": "Steamy Sage",
-    "Minimalist": "Steamy Sage",
-    "Comfort-Seeker": "Boba Babe",
-    "Risk-Taker": "Loco Taco",
-    "Value-Conscious": "Big Bucks Bun",
-    "Community-Oriented": "Yappy Sushi",
-    "Resourceful": "Big Bucks Bun",
-    "Organized": "Big Bucks Bun",
-    "Spontaneous": "Boba Babe",
-    "Emotional": "Boba Babe",
-    "Charismatic": "Yappy Sushi",
-    "Relationship-Focused": "Yappy Sushi",
-    "Goal-Oriented": "Flash Fry",
-    "Variety-Seeker": "Loco Taco",
-    "Generous": "Yappy Sushi",
-    "Convenience-Lover": "Flash Fry"
-  };
+  // Priority order for tie-breaking (matches the Python snippet)
+  const priorityOrder = [
+    "Flash Fry",
+    "Big Bucks Bao",
+    "Loco Taco",
+    "Talkayaki",
+    "Namastew",
+    "Boba Babe",
+  ];
 
   useEffect(() => {
     // Directly use the imported quiz data
@@ -85,34 +68,44 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
     if (!quizData) return;
 
     const scores: PersonalityScore = {
-      "Big Bucks Bun": 0,
-      "Yappy Sushi": 0,
+      "Big Bucks Bao": 0,
+      "Talkayaki": 0,
       "Loco Taco": 0,
       "Flash Fry": 0,
       "Boba Babe": 0,
-      "Steamy Sage": 0
+      "Namastew": 0
     };
 
     // Count the scores for each personality type
     Object.values(answers).forEach((option) => {
-      const personalityType = personalityMapping[option.type];
+      // Direct mapping for the new quiz format
+      const personalityType = option.type;
       if (personalityType) {
         scores[personalityType] = (scores[personalityType] || 0) + 1;
       }
     });
 
-    // Find the personality type with the highest score
+    // Find the personality types with the highest score
     let maxScore = 0;
-    let resultType = "";
+    let highestScoringTypes: string[] = [];
     
     Object.entries(scores).forEach(([type, score]) => {
       if (score > maxScore) {
         maxScore = score;
-        resultType = type;
+        highestScoringTypes = [type];
+      } else if (score === maxScore) {
+        highestScoringTypes.push(type);
       }
     });
 
-    setResult(resultType);
+    // If there's a tie, use the priority order to break it
+    if (highestScoringTypes.length > 1) {
+      highestScoringTypes.sort((a, b) => {
+        return priorityOrder.indexOf(a) - priorityOrder.indexOf(b);
+      });
+    }
+
+    setResult(highestScoringTypes[0]);
   };
 
   const resetQuiz = () => {
