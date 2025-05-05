@@ -76,6 +76,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  
+  /* Safe area variables */
+  --sat: env(safe-area-inset-top);
+  --sar: env(safe-area-inset-right);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
 }
 
 .dark {
@@ -118,7 +124,18 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* Add padding to account for safe areas */
+    padding-top: var(--sat, 0px);
+    padding-right: var(--sar, 0px);
+    padding-bottom: var(--sab, 0px);
+    padding-left: var(--sal, 0px);
+    min-height: 100dvh;
   }
+}
+
+/* Safe area utilities */
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem));
 }
 
 /* Remove all the custom quiz styles since we're using React components now */

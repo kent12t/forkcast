@@ -8,7 +8,7 @@ export function QuizContainer({ children, className }: React.HTMLAttributes<HTML
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between min-h-screen bg-[#FCF3EC] text-[#FF5E29] pt-8 pb-12 px-4 overflow-hidden",
+        "flex flex-col items-center justify-between min-h-[100dvh] h-[100dvh] bg-[#FCF3EC] text-[#FF5E29] pt-8 pb-safe px-4 overflow-hidden",
         className
       )}
     >
@@ -88,7 +88,7 @@ export function StartContainer({ children, className }: React.HTMLAttributes<HTM
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between min-h-screen bg-[#FF5E29] text-white p-8",
+        "flex flex-col items-center justify-between min-h-[100dvh] h-[100dvh] bg-[#FF5E29] text-white p-8 pb-safe",
         className
       )}
     >
@@ -153,7 +153,7 @@ export function QuizResultContainer({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between min-h-screen bg-[#ff5e29] text-[#FCF3EC] pt-8 pb-12 px-4 overflow-hidden",
+        "flex flex-col items-center justify-between min-h-[100dvh] h-[100dvh] bg-[#ff5e29] text-[#FCF3EC] pt-8 pb-safe px-4 overflow-hidden",
         className
       )}
     >

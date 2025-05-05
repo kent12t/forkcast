@@ -31,9 +31,9 @@ export const QuizResult: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-stretch min-h-screen bg-[#ff5e29] text-[#FCF3EC] px-4 overflow-hidden">
+    <div className="flex flex-col items-stretch min-h-[100dvh] h-[100dvh] bg-[#ff5e29] text-[#FCF3EC] px-4 pt-4 sm:pt-8 md:pt-12 pb-6 sm:pb-8 md:pb-12 overflow-hidden">
       {/* Top aligned header */}
-      <div className="pt-6">
+      <div>
         <p className="text-center font-medium font-poppins text-base sm:text-lg">
           Feel free to share your result!<br />
           #Foodpersona
@@ -41,14 +41,14 @@ export const QuizResult: React.FC = () => {
       </div>
       
       {/* Middle flex container for image */}
-      <div className="flex-1 flex items-center justify-center w-full px-4 py-4">
-        <div className="w-full mx-auto">
+      <div className="flex-grow flex items-center justify-center w-full px-4 py-2 sm:py-4">
+        <div className="w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto">
           <div className="relative w-full h-0" style={{ paddingBottom: '150%' }}>
             <div className="absolute inset-0">
               <Image
                 src={imageSrc}
                 alt={`${result} food persona`}
-                sizes="(max-width: 640px) 100vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 70vw"
                 fill
                 priority
                 style={{ objectFit: 'contain' }}
@@ -59,12 +59,12 @@ export const QuizResult: React.FC = () => {
       </div>
       
       {/* Bottom aligned buttons */}
-      <div className="pb-4">
-        <div className="flex flex-col gap-2 w-full max-w-32 sm:max-w-36 mx-auto">
+      <div className="mt-auto pb-safe">
+        <div className="flex flex-col gap-2 sm:gap-3 w-full max-w-32 sm:max-w-40 mx-auto">
           <QuizButton 
             onClick={resetQuiz} 
             variant="primary" 
-            className="w-full py-2 text-sm sm:text-base"
+            className="w-full py-2 sm:py-3.5 text-sm sm:text-base"
           >
             Retake
           </QuizButton>
@@ -72,7 +72,7 @@ export const QuizResult: React.FC = () => {
           <QuizButton
             variant="outline"
             onClick={handleBackToHome}
-            className="w-full py-2 text-sm sm:text-base"
+            className="w-full py-2 sm:py-3.5 text-sm sm:text-base"
           >
             Try the app
           </QuizButton>
