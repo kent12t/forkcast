@@ -30,8 +30,8 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           <div className="relative w-full h-0" style={{ paddingBottom: '100%' }}> {/* 1:1 aspect ratio */}
             <div className="absolute inset-0">
               <Image 
-                src="/cabin.png" 
-                alt="Cookie cabin in the clouds"
+                src="/start-page.png" 
+                alt="Quiz start page illustration"
                 fill
                 sizes="(max-width: 640px) 100vw, (max-width: 768px) 80vw, 70vw"
                 className="object-contain"

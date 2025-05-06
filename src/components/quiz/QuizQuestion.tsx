@@ -6,8 +6,6 @@ import { useQuiz } from "./QuizContext";
 import {
   QuizContainer,
   QuizHeader,
-  QuizImageContainer,
-  QuizImageFrame,
   QuizOptions,
   QuizOption,
   QuizProgressBar
@@ -27,18 +25,20 @@ export const QuizQuestion: React.FC = () => {
     <QuizContainer>
       <QuizHeader>{question.text}</QuizHeader>
       
-      <QuizImageContainer>
-        <QuizImageFrame className="h-64 w-64 relative">
-          <Image 
-            src="/cabin.png" 
-            alt="Cookie cabin in the clouds"
-            fill
-            sizes="(max-width: 768px) 100vw, 256px"
-            className="object-contain"
-            priority
-          />
-        </QuizImageFrame>
-      </QuizImageContainer>
+      <div className="w-full max-w-xs mx-auto sm:max-w-sm md:max-w-md">
+        <div className="relative w-full h-0" style={{ paddingBottom: '100%' }}>
+          <div className="absolute inset-0">
+            <Image 
+              src={`/Q${currentQuestion + 1}.png`}
+              alt={`Question ${currentQuestion + 1} illustration`}
+              fill
+              sizes="(max-width: 768px) 100vw, 256px"
+              className="object-contain"
+              priority
+            />
+          </div>
+        </div>
+      </div>
       
       <QuizOptions>
         {question.options.map((option) => (
