@@ -54,14 +54,14 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
           <div className="flex flex-col w-full gap-2 mx-auto sm:gap-3 max-w-32 sm:max-w-40">
             <QuizButton
               onClick={onStart}
-              variant="primary"
+              variant="start"
               className="w-full py-2 text-sm sm:py-3 sm:text-base"
             >
               Start
             </QuizButton>
 
             <QuizButton
-              variant="outline"
+              variant="start"
               onClick={() => {/* About page functionality */}}
               className="w-full py-2 text-sm sm:py-3 sm:text-base"
             >

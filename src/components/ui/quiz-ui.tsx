@@ -124,27 +124,35 @@ export function ButtonContainer({ children, className }: React.HTMLAttributes<HT
 }
 
 interface QuizButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "outline";
+  variant?: "start" | "result" | "quiz";
   className?: string;
+  themeColor?: string;
 }
 
-export function QuizButton({ children, variant = "primary", className, ...props }: QuizButtonProps) {
+export function QuizButton({ children, variant = "quiz", className, themeColor, ...props }: QuizButtonProps) {
+  const defaultColor = "#FF5E29";
+  const colorStyle = themeColor || defaultColor;
+  
   return (
     <button
       className={cn(
         "rounded-lg p-4 font-bold text-center w-full transition-colors active:scale-95",
-        variant === "primary" 
-          ? "bg-white text-[#FF5B34] hover:bg-[#FFDCD3]" 
-          : "bg-white/20 text-white border-white border",
+        variant === "quiz" && "bg-white text-[#FF5B34] hover:bg-[#FFDCD3]",
+        variant === "start" && "bg-[#FCF3EC] text-[#FF5E29] hover:opacity-90",
+        variant === "result" && "text-white hover:opacity-90",
         className
       )}
+      style={
+        variant === "result" 
+          ? { backgroundColor: colorStyle }
+          : undefined
+      }
       {...props}
     >
       {children}
     </button>
   );
-} 
-
+}
 
 export function QuizResultContainer({
   children,

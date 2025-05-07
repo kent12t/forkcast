@@ -8,12 +8,22 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 // Image mapping for each personality
 const imageMapping: { [key: string]: string } = {
-  "Big Bucks Bao": "/bao-optimised.png",
-  Talkayaki: "/yaki-optimised.png",
-  "Loco Taco": "/taco-optimised.png",
-  "Flash Fry": "/fries-optimised.png",
-  "Boba Babe": "/boba-optimised.png",
-  Namastew: "/stew-optimised.png",
+  "Big Bucks Bao": "/bao.png",
+  Talkayaki: "/yaki.png",
+  "Loco Taco": "/taco.png",
+  "Flash Fry": "/fries.png",
+  "Boba Babe": "/boba.png",
+  Namastew: "/stew.png",
+};
+
+// Color mapping for each personality
+const colorMapping: { [key: string]: string } = {
+  "Big Bucks Bao": "#3F537F",
+  "Talkayaki": "#E14410",
+  "Loco Taco": "#E88F00",
+  "Namastew": "#8E8E00",
+  "Flash Fry": "#7A0009",
+  "Boba Babe": "#E53E6E",
 };
 
 export const QuizResult: React.FC = () => {
@@ -25,13 +35,17 @@ export const QuizResult: React.FC = () => {
   }
 
   const imageSrc = imageMapping[result] || "/fries-optimised.png";
+  const themeColor = colorMapping[result] || "#FF5E29";
 
   const handleBackToHome = () => {
     window.location.href = "/";
   };
 
   return (
-    <div className="min-h-[100dvh] bg-[#ff5e29] flex items-center justify-center w-full text-[#FCF3EC]">
+    <div
+      className="min-h-[100dvh] bg-[#FCF3EC] flex items-center justify-center w-full"
+      style={{ color: themeColor }}
+    >
       <div className="w-full h-full max-h-[800px] flex flex-col items-stretch gap-6 px-4 pt-6 pb-6 overflow-y-auto">
         {/* Header */}
         <div>
@@ -67,20 +81,21 @@ export const QuizResult: React.FC = () => {
         </div>
 
         {/* Buttons */}
-
         <div className="flex flex-col w-full gap-2 mx-auto sm:gap-3 max-w-32 sm:max-w-40">
           <QuizButton
             onClick={resetQuiz}
-            variant="primary"
+            variant="result"
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
+            themeColor={themeColor}
           >
             Retake
           </QuizButton>
 
           <QuizButton
-            variant="outline"
+            variant="result"
             onClick={handleBackToHome}
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
+            themeColor={themeColor}
           >
             Try the app
           </QuizButton>
