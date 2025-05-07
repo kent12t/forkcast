@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { QuizProvider, useQuiz } from "./QuizContext";
 import { StartScreen } from "./StartScreen";
 import { QuizQuestion } from "./QuizQuestion";
@@ -14,8 +14,7 @@ const fadeVariants = {
 };
 
 const QuizContent: React.FC = () => {
-  const [showStart, setShowStart] = useState(true);
-  const { isComplete } = useQuiz();
+  const { isComplete, showStart, setShowStart } = useQuiz();
 
   const handleStartQuiz = () => {
     setShowStart(false);

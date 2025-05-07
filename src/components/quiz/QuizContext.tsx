@@ -1,39 +1,43 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { QuizData, Option } from "@/types/quiz";
-import quizJsonData from "@/data/quiz.json";
+import React, { createContext, useContext, useState } from "react";
+import quizData from "@/data/quiz.json";
 
-type PersonalityScore = {
-  [key: string]: number;
+type Option = {
+  id: string;
+  text: string;
+  type: string;
 };
 
-type QuizContextType = {
+type Question = {
+  id: number;
+  text: string;
+  options: Option[];
+};
+
+interface QuizContextType {
   currentQuestion: number;
-  answers: { [key: number]: Option };
-  quizData: QuizData | null;
-  isLoading: boolean;
-  isComplete: boolean;
+  answers: Option[];
   result: string | null;
-  setCurrentQuestion: (question: number) => void;
-  selectAnswer: (question: number, option: Option) => void;
-  calculateResult: () => void;
+  isComplete: boolean;
+  showStart: boolean;
+  quizData: { questions: Question[] };
+  isLoading: boolean;
+  selectAnswer: (questionId: number, option: Option) => void;
   resetQuiz: () => void;
-};
+  setShowStart: (show: boolean) => void;
+}
 
-const QuizContext = createContext<QuizContextType | undefined>(undefined);
+export const QuizContext = createContext<QuizContextType | undefined>(undefined);
 
-export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ 
-  children 
-}) => {
-  const [quizData, setQuizData] = useState<QuizData | null>(null);
+export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [answers, setAnswers] = useState<{ [key: number]: Option }>({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [isComplete, setIsComplete] = useState(false);
+  const [answers, setAnswers] = useState<Option[]>([]);
   const [result, setResult] = useState<string | null>(null);
+  const [showStart, setShowStart] = useState(true);
+  const [isLoading] = useState(false);
 
-  // Priority order for tie-breaking (matches the Python snippet)
+  // Priority order for tie-breaking
   const priorityOrder = [
     "Flash Fry",
     "Big Bucks Bao",
@@ -43,31 +47,8 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
     "Boba Babe",
   ];
 
-  useEffect(() => {
-    // Directly use the imported quiz data
-    setQuizData(quizJsonData);
-    setIsLoading(false);
-  }, []);
-
-  const selectAnswer = (questionId: number, option: Option) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [questionId]: option,
-    }));
-    
-    // Move to next question if not at the end
-    if (quizData && currentQuestion < quizData.questions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else if (quizData && currentQuestion === quizData.questions.length - 1) {
-      setIsComplete(true);
-      calculateResult();
-    }
-  };
-
-  const calculateResult = () => {
-    if (!quizData) return;
-
-    const scores: PersonalityScore = {
+  const calculateResult = (answers: Option[]) => {
+    const scores: { [key: string]: number } = {
       "Big Bucks Bao": 0,
       "Talkayaki": 0,
       "Loco Taco": 0,
@@ -77,11 +58,9 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
     };
 
     // Count the scores for each personality type
-    Object.values(answers).forEach((option) => {
-      // Direct mapping for the new quiz format
-      const personalityType = option.type;
-      if (personalityType) {
-        scores[personalityType] = (scores[personalityType] || 0) + 1;
+    answers.forEach((option) => {
+      if (option.type) {
+        scores[option.type] = (scores[option.type] || 0) + 1;
       }
     });
 
@@ -105,34 +84,41 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({
       });
     }
 
-    setResult(highestScoringTypes[0]);
+    return highestScoringTypes[0];
   };
 
   const resetQuiz = () => {
     setCurrentQuestion(0);
-    setAnswers({});
-    setIsComplete(false);
+    setAnswers([]);
     setResult(null);
+    setShowStart(true);
   };
 
-  return (
-    <QuizContext.Provider
-      value={{
-        currentQuestion,
-        answers,
-        quizData,
-        isLoading,
-        isComplete,
-        result,
-        setCurrentQuestion,
-        selectAnswer,
-        calculateResult,
-        resetQuiz,
-      }}
-    >
-      {children}
-    </QuizContext.Provider>
-  );
+  const selectAnswer = (questionId: number, option: Option) => {
+    setAnswers([...answers, option]);
+    
+    if (currentQuestion < quizData.questions.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+    } else {
+      const finalResult = calculateResult([...answers, option]);
+      setResult(finalResult);
+    }
+  };
+
+  const value = {
+    currentQuestion,
+    answers,
+    result,
+    isComplete: result !== null,
+    showStart,
+    quizData,
+    isLoading,
+    selectAnswer,
+    resetQuiz,
+    setShowStart,
+  };
+
+  return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
 };
 
 export const useQuiz = () => {
@@ -141,4 +127,4 @@ export const useQuiz = () => {
     throw new Error("useQuiz must be used within a QuizProvider");
   }
   return context;
-}; 
+};

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import quizData from "@/data/quiz.json";
 import {
   QuizButton,
@@ -14,6 +15,7 @@ interface StartScreenProps {
 
 export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   const [imageLoading, setImageLoading] = useState(true);
+  const router = useRouter();
 
   return (
     <div className="min-h-[100dvh] bg-[#FF5E29] flex items-center justify-center w-full text-[#ECDFD4]">
@@ -62,7 +64,7 @@ export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
 
             <QuizButton
               variant="start"
-              onClick={() => {/* About page functionality */}}
+              onClick={() => router.push("/about")}
               className="w-full py-2 text-sm sm:py-3 sm:text-base"
             >
               About

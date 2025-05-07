@@ -12,6 +12,12 @@ import {
 } from "@/components/ui/quiz-ui";
 import { Skeleton } from "@/components/ui/skeleton";
 
+type Option = {
+  id: string;
+  text: string;
+  type: string;
+};
+
 export const QuizQuestion: React.FC = () => {
   const { currentQuestion, quizData, isLoading, selectAnswer } = useQuiz();
   const [imageLoading, setImageLoading] = useState(true);
@@ -65,7 +71,7 @@ export const QuizQuestion: React.FC = () => {
       {/* Options and Progress - fixed height, more compact */}
       <div className="flex-none w-full mt-1">
         <QuizOptions>
-          {question.options.map((option) => (
+          {question.options.map((option: Option) => (
             <QuizOption
               key={option.id}
               onClick={() => selectAnswer(question.id, option)}

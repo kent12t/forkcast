@@ -37,8 +37,8 @@ export const QuizResult: React.FC = () => {
   const imageSrc = imageMapping[result] || "/fries-optimised.png";
   const themeColor = colorMapping[result] || "#FF5E29";
 
-  const handleBackToHome = () => {
-    window.location.href = "/";
+  const handleNavigation = () => {
+    resetQuiz();
   };
 
   return (
@@ -46,7 +46,7 @@ export const QuizResult: React.FC = () => {
       className="min-h-[100dvh] bg-[#FCF3EC] flex items-center justify-center w-full"
       style={{ color: themeColor }}
     >
-      <div className="w-full h-full max-h-[800px] flex flex-col items-stretch gap-6 px-4 pt-6 pb-6 overflow-y-auto">
+      <div className="w-full h-full max-h-[800px] flex flex-col items-stretch gap-4 px-4 overflow-y-auto">
         {/* Header */}
         <div>
           <p className="text-base font-medium text-center font-poppins sm:text-lg">
@@ -83,17 +83,17 @@ export const QuizResult: React.FC = () => {
         {/* Buttons */}
         <div className="flex flex-col w-full gap-2 mx-auto sm:gap-3 max-w-32 sm:max-w-40">
           <QuizButton
-            onClick={resetQuiz}
+            onClick={handleNavigation}
             variant="result"
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
             themeColor={themeColor}
           >
-            Retake
+            Return Home
           </QuizButton>
 
           <QuizButton
             variant="result"
-            onClick={handleBackToHome}
+            onClick={handleNavigation}
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
             themeColor={themeColor}
           >
