@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useQuiz } from "./QuizContext";
 import {
@@ -10,10 +10,23 @@ import {
   QuizOption,
   QuizProgressBar
 } from "@/components/ui/quiz-ui";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const QuizQuestion: React.FC = () => {
   const { currentQuestion, quizData, isLoading, selectAnswer } = useQuiz();
+  const [imageLoading, setImageLoading] = useState(true);
   
+  // Preload next image
+  useEffect(() => {
+    if (!quizData) return;
+    
+    const nextQuestion = currentQuestion + 1;
+    if (nextQuestion < quizData.questions.length) {
+      const img = new window.Image();
+      img.src = `/Q${nextQuestion + 1}.png`;
+    }
+  }, [currentQuestion, quizData]);
+
   if (isLoading || !quizData) {
     return <QuizContainer>Loading quiz...</QuizContainer>;
   }
@@ -28,6 +41,9 @@ export const QuizQuestion: React.FC = () => {
       <div className="w-full max-w-xs mx-auto sm:max-w-sm md:max-w-md">
         <div className="relative w-full h-0" style={{ paddingBottom: '100%' }}>
           <div className="absolute inset-0">
+            {imageLoading && (
+              <Skeleton className="absolute inset-0 rounded-lg" />
+            )}
             <Image 
               src={`/Q${currentQuestion + 1}.png`}
               alt={`Question ${currentQuestion + 1} illustration`}
@@ -35,6 +51,8 @@ export const QuizQuestion: React.FC = () => {
               sizes="(max-width: 768px) 100vw, 256px"
               className="object-contain"
               priority
+              onLoadingComplete={() => setImageLoading(false)}
+              onLoad={() => setImageLoading(false)}
             />
           </div>
         </div>
