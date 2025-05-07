@@ -6,14 +6,14 @@ import { cn } from "@/lib/utils";
 
 export function QuizContainer({ children, className }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div
-      className={cn(
-        "flex flex-col items-center justify-between min-h-[100dvh] h-[100dvh] bg-[#FCF3EC] text-[#FF5E29] pt-8 pb-safe px-4 overflow-hidden",
+    <div className="min-h-[100dvh] bg-[#FCF3EC] flex items-center justify-center w-full text-[#FF5E29]">
+      <div className={cn(
+        "w-full h-full max-h-[800px] flex flex-col items-center px-4 py-8 overflow-y-auto",
         className
-      )}
-    >
-      <div className="w-full max-w-[400px] flex flex-col items-center justify-between flex-1">
-        {children}
+      )}>
+        <div className="w-full max-w-[400px] flex flex-col gap-6 items-center justify-between flex-1 min-h-full">
+          {children}
+        </div>
       </div>
     </div>
   );
@@ -21,7 +21,7 @@ export function QuizContainer({ children, className }: React.HTMLAttributes<HTML
 
 export function QuizHeader({ children, className }: React.HTMLAttributes<HTMLHeadingElement>) {
   return (
-    <h2 className={cn("font-sans font-bold text-lg h-32 flex flex-col items-center justify-center text-center w-full max-w-[400px]", className)}>
+    <h2 className={cn("font-sans font-bold text-lg h-24 flex flex-col items-center justify-center text-center w-full max-w-[400px]", className)}>
       {children}
     </h2>
   );
@@ -45,7 +45,7 @@ export function QuizImageFrame({ children, className }: React.HTMLAttributes<HTM
 
 export function QuizOptions({ children, className }: React.HTMLAttributes<HTMLDivElement>) {
   return (
-    <div className={cn("flex flex-col w-full max-w-[400px] gap-4 mt-6", className)}>
+    <div className={cn("flex flex-col w-full max-w-[400px] gap-2", className)}>
       {children}
     </div>
   );
@@ -58,7 +58,7 @@ interface QuizOptionProps extends React.ButtonHTMLAttributes<HTMLButtonElement> 
 export function QuizOption({ children, className, ...props }: QuizOptionProps) {
   return (
     <button
-      className={cn("bg-white text-[#FF5B34] rounded-lg p-5 h-24 flex items-center justify-center text-center font-medium text-sm hover:bg-[#FFDCD3] transition-colors cursor-pointer active:scale-95", className)}
+      className={cn("bg-white text-[#FF5B34] rounded-lg p-3 flex items-center justify-center text-center font-medium text-sm hover:bg-[#FFDCD3] transition-colors cursor-pointer active:scale-95", className)}
       {...props}
     >
       {children}
@@ -75,9 +75,9 @@ interface QuizProgressBarProps {
 
 export function QuizProgressBar({ value, current, total, className }: QuizProgressBarProps) {
   return (
-    <div className={cn("w-full max-w-[400px] mt-6", className)}>
+    <div className={cn("w-full max-w-[400px] mt-3", className)}>
       <Progress value={value} className="h-2 [&>div]:bg-[#FF5E29]" />
-      <p className="text-center mt-2 text-sm">
+      <p className="text-center mt-1 text-sm text-[#FF5E29]">
         Question {current} of {total}
       </p>
     </div>
@@ -88,7 +88,7 @@ export function StartContainer({ children, className }: React.HTMLAttributes<HTM
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between min-h-[100dvh] h-[100dvh] bg-[#FF5E29] text-white p-8 pb-safe",
+        "flex flex-col items-center justify-between min-h-[100dvh] bg-[#FF5E29] text-white p-8 pb-safe overflow-y-auto",
         className
       )}
     >
@@ -153,7 +153,7 @@ export function QuizResultContainer({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-between min-h-[100dvh] h-[100dvh] bg-[#ff5e29] text-[#FCF3EC] pt-8 pb-safe px-4 overflow-hidden",
+        "flex flex-col items-center justify-between min-h-[100dvh] bg-[#ff5e29] text-[#FCF3EC] pt-8 pb-safe px-4 overflow-y-auto",
         className
       )}
     >
