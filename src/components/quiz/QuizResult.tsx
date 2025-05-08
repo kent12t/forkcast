@@ -37,8 +37,15 @@ export const QuizResult: React.FC = () => {
   const imageSrc = imageMapping[result] || "/fries-optimised.png";
   const themeColor = colorMapping[result] || "#FF5E29";
 
-  const handleNavigation = () => {
+  const handleReturnHome = () => {
     resetQuiz();
+  };
+
+  const handleTryApp = () => {
+    window.open(
+      "https://www.figma.com/proto/HyddRt6BlffW73ZieNsV3i/Forkcast_Wireframe?page-id=0%3A1&node-id=687-8065&p=f&viewport=-11537%2C2270%2C0.48&t=PnC3bSz16Sj4bKA7-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=687%3A8065&show-proto-sidebar=1",
+      "_blank"
+    );
   };
 
   return (
@@ -83,7 +90,7 @@ export const QuizResult: React.FC = () => {
         {/* Buttons */}
         <div className="flex flex-col w-full gap-2 mx-auto sm:gap-3 max-w-32 sm:max-w-40">
           <QuizButton
-            onClick={handleNavigation}
+            onClick={handleReturnHome}
             variant="result"
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
             themeColor={themeColor}
@@ -93,7 +100,7 @@ export const QuizResult: React.FC = () => {
 
           <QuizButton
             variant="result"
-            onClick={handleNavigation}
+            onClick={handleTryApp}
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
             themeColor={themeColor}
           >
