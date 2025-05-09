@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useQuiz } from "./QuizContext";
 import { QuizButton } from "@/components/ui/quiz-ui";
 import { Skeleton } from "@/components/ui/skeleton";
+import { logQuizResult } from "@/lib/supabase";
 
 // Image mapping for each personality
 const imageMapping: { [key: string]: string } = {
@@ -30,6 +31,15 @@ const colorMapping: { [key: string]: string } = {
 export const QuizResult: React.FC = () => {
   const { result, resetQuiz } = useQuiz();
   const [imageLoading, setImageLoading] = useState(true);
+
+  useEffect(() => {
+    if (result) {
+      // Get sessionId from localStorage if it exists
+      const sessionId = localStorage.getItem('quiz_session_id') || undefined;
+      // Log the completed quiz result
+      logQuizResult(result, sessionId, true).catch(console.error);
+    }
+  }, [result]);
 
   if (!result) {
     return null;

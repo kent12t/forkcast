@@ -1,7 +1,8 @@
 "use client";
 
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
 import quizData from "@/data/quiz.json";
+import { logQuizResult } from "@/lib/supabase";
 
 type Option = {
   id: string;
@@ -36,6 +37,19 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [result, setResult] = useState<string | null>(null);
   const [showStart, setShowStart] = useState(true);
   const [isLoading] = useState(false);
+
+  // Initialize session when quiz starts
+  useEffect(() => {
+    if (!showStart && currentQuestion === 0) {
+      // Only generate new session if one doesn't exist
+      if (!localStorage.getItem('quiz_session_id')) {
+        const sessionId = crypto.randomUUID();
+        localStorage.setItem('quiz_session_id', sessionId);
+        // Log quiz start
+        logQuizResult('', sessionId, false).catch(console.error);
+      }
+    }
+  }, [showStart, currentQuestion]);
 
   // Priority order for tie-breaking
   const priorityOrder = [
@@ -92,6 +106,8 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAnswers([]);
     setResult(null);
     setShowStart(true);
+    // Clear the session ID when resetting the quiz
+    localStorage.removeItem('quiz_session_id');
   };
 
   const selectAnswer = (questionId: number, option: Option) => {
