@@ -9,24 +9,45 @@ export const supabase = createClient<Database>(
   supabaseAnonKey!
 )
 
-export const logQuizResult = async (
-  personalityType: string,
-  sessionId?: string,
-  completed: boolean = true
-) => {
+// Start a new quiz attempt
+export const startQuizAttempt = async (sessionId: string) => {
   try {
     const { error } = await supabase
       .from('quiz_results')
       .insert({
-        personality_type: personalityType,
+        personality_type: '',
         session_id: sessionId,
-        completed
+        completed: false
       })
     
     if (error) throw error
     return true
   } catch (error) {
-    console.error('Error logging quiz result:', error)
+    console.error('Error starting quiz:', error)
+    return false
+  }
+}
+
+// Complete a quiz attempt
+export const completeQuizAttempt = async (
+  sessionId: string,
+  personalityType: string,
+) => {
+  try {
+    const { error } = await supabase
+      .from('quiz_results')
+      .update({ 
+        personality_type: personalityType,
+        completed: true,
+        completed_at: new Date().toISOString()
+      })
+      .eq('session_id', sessionId)
+      .eq('completed', false)
+    
+    if (error) throw error
+    return true
+  } catch (error) {
+    console.error('Error completing quiz:', error)
     return false
   }
 } 

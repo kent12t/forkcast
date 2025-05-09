@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import quizData from "@/data/quiz.json";
-import { logQuizResult } from "@/lib/supabase";
+import { startQuizAttempt, completeQuizAttempt } from "@/lib/supabase";
 
 type Option = {
   id: string;
@@ -37,17 +37,15 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [result, setResult] = useState<string | null>(null);
   const [showStart, setShowStart] = useState(true);
   const [isLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
 
   // Initialize session when quiz starts
   useEffect(() => {
     if (!showStart && currentQuestion === 0) {
-      // Only generate new session if one doesn't exist
-      if (!localStorage.getItem('quiz_session_id')) {
-        const sessionId = crypto.randomUUID();
-        localStorage.setItem('quiz_session_id', sessionId);
-        // Log quiz start
-        logQuizResult('', sessionId, false).catch(console.error);
-      }
+      const newSessionId = crypto.randomUUID();
+      setSessionId(newSessionId);
+      // Log quiz start
+      startQuizAttempt(newSessionId).catch(console.error);
     }
   }, [showStart, currentQuestion]);
 
@@ -106,8 +104,7 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setAnswers([]);
     setResult(null);
     setShowStart(true);
-    // Clear the session ID when resetting the quiz
-    localStorage.removeItem('quiz_session_id');
+    setSessionId(null);
   };
 
   const selectAnswer = (questionId: number, option: Option) => {
@@ -118,6 +115,10 @@ export const QuizProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } else {
       const finalResult = calculateResult([...answers, option]);
       setResult(finalResult);
+      // Complete the quiz attempt
+      if (sessionId) {
+        completeQuizAttempt(sessionId, finalResult).catch(console.error);
+      }
     }
   };
 
