@@ -2,7 +2,7 @@
 
 Whisk away to a cloud-top world of snacks and surprises where cravings lead and your food persona awaits!
 
-![Forkcast Home](public/home_screenshot.png)
+![Forkcast Home](public/start-page.png)
 
 ## About
 
