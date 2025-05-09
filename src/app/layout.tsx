@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Analytics } from '@vercel/analytics/react';
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -23,7 +24,10 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover" />
       </head>
-      <body className={`${poppins.variable} font-sans`}>{children}</body>
+      <body className={`${poppins.variable} font-sans`}>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
