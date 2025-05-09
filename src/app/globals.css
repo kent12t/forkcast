@@ -130,6 +130,8 @@
     padding-bottom: var(--sab, 0px);
     padding-left: var(--sal, 0px);
     min-height: 100dvh;
+    /* Disable double-tap zoom while preserving pinch zoom */
+    touch-action: manipulation;
   }
 }
 

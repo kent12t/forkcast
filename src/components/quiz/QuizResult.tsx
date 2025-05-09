@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useQuiz } from "./QuizContext";
 import { QuizButton } from "@/components/ui/quiz-ui";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -36,6 +37,51 @@ export const QuizResult: React.FC = () => {
 
   const imageSrc = imageMapping[result] || "/fries-optimised.png";
   const themeColor = colorMapping[result] || "#FF5E29";
+
+  const handleShare = async () => {
+    try {
+      // Fetch the image and convert it to a blob
+      const response = await fetch(imageSrc);
+      const blob = await response.blob();
+      const file = new File([blob], 'foodpersona.png', { type: blob.type });
+
+      if (navigator.share && navigator.canShare) {
+        const shareData = {
+          title: 'My Foodpersona Result',
+          text: `I'm a ${result}! Find out your food personality at Forkcast! #Foodpersona`,
+          url: window.location.href,
+          files: [file]
+        };
+
+        if (navigator.canShare(shareData)) {
+          await navigator.share(shareData);
+        } else {
+          // Fallback to sharing without image if files are not supported
+          await navigator.share({
+            title: 'My Foodpersona Result',
+            text: `I'm a ${result}! Find out your food personality at Forkcast! #Foodpersona`,
+            url: window.location.href,
+          });
+        }
+      } else {
+        console.log('Web Share API not supported');
+      }
+    } catch (error) {
+      console.error('Error sharing:', error);
+      // Fallback to basic share if image sharing fails
+      try {
+        if (navigator.share) {
+          await navigator.share({
+            title: 'My Foodpersona Result',
+            text: `I'm a ${result}! Find out your food personality at Forkcast! #Foodpersona`,
+            url: window.location.href,
+          });
+        }
+      } catch (fallbackError) {
+        console.error('Fallback sharing failed:', fallbackError);
+      }
+    }
+  };
 
   const handleReturnHome = () => {
     resetQuiz();
@@ -88,24 +134,57 @@ export const QuizResult: React.FC = () => {
         </div>
 
         {/* Buttons */}
-        <div className="flex flex-col w-full gap-2 mx-auto sm:gap-3 max-w-32 sm:max-w-40">
+        <div className="flex flex-col w-4/5 gap-2 mx-auto sm:gap-3 max-w-96">
           <QuizButton
-            onClick={handleReturnHome}
+            onClick={handleShare}
             variant="result"
             className="w-full py-2 text-sm sm:py-3 sm:text-base"
             themeColor={themeColor}
           >
-            Return Home
+            Share
           </QuizButton>
 
-          <QuizButton
-            variant="result"
-            onClick={handleTryApp}
-            className="w-full py-2 text-sm sm:py-3 sm:text-base"
-            themeColor={themeColor}
+          <div className="flex gap-2 sm:gap-3">
+            <QuizButton
+              onClick={handleReturnHome}
+              variant="result"
+              className="flex-1 py-2 text-sm sm:py-3 sm:text-base"
+              themeColor={themeColor}
+            >
+              Return Home
+            </QuizButton>
+
+            <QuizButton
+              variant="result"
+              onClick={handleTryApp}
+              className="flex-1 py-2 text-sm sm:py-3 sm:text-base"
+              themeColor={themeColor}
+            >
+              Try the app
+            </QuizButton>
+          </div>
+        </div>
+
+        {/* Attribution */}
+        <div className="pt-4 mb-4 text-xs text-center" style={{ color: themeColor }}>
+          Designed by{" "}
+          <Link
+            href="https://www.instagram.com/viviantxh"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
           >
-            Try the app
-          </QuizButton>
+            @viviantxh
+          </Link>{" "}
+          and developed by{" "}
+          <Link
+            href="https://github.com/kent12t"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Kent
+          </Link>
         </div>
       </div>
     </div>
