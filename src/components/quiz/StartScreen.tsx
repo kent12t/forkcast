@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import quizData from "@/data/quiz.json";
@@ -16,6 +16,24 @@ interface StartScreenProps {
 export const StartScreen: React.FC<StartScreenProps> = ({ onStart }) => {
   const [imageLoading, setImageLoading] = useState(true);
   const router = useRouter();
+
+  // Preload all quiz images
+  useEffect(() => {
+    if (quizData && quizData.questions) {
+      quizData.questions.forEach((question) => {
+        // Assuming question images are named Q1.png, Q2.png, etc.
+        // and question.id might not be sequential or 1-indexed.
+        // Using index + 1 if IDs are not reliable for image naming.
+        // If question.id *is* the image number, use that instead.
+        const img = new window.Image();
+        // The search result for QuizQuestion.tsx showed img.src = `/Q${nextQuestion + 1}.png`;
+        // where nextQuestion was currentQuestion + 1. currentQuestion is 0-indexed.
+        // So, for question 1, it's Q1.png.
+        // Assuming quizData.questions is 0-indexed and questions have an 'id' that is 1-indexed for the image.
+        img.src = `/Q${question.id}.png`; 
+      });
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   return (
     <div className="min-h-[100dvh] bg-[#FF5E29] flex items-center justify-center w-full text-[#ECDFD4]">
