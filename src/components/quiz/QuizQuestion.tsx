@@ -21,17 +21,40 @@ type Option = {
 export const QuizQuestion: React.FC = () => {
   const { currentQuestion, quizData, isLoading, selectAnswer } = useQuiz();
   const [imageLoading, setImageLoading] = useState(true);
+  const [preloadedImages, setPreloadedImages] = useState<{ [key: number]: boolean }>({});
   
-  // Preload next image
+  // Preload all question images on component mount
   useEffect(() => {
     if (!quizData) return;
     
-    const nextQuestion = currentQuestion + 1;
-    if (nextQuestion < quizData.questions.length) {
+    const preloadedStatus: { [key: number]: boolean } = {};
+    
+    quizData.questions.forEach((question, index) => {
+      // Start with current and next questions to prioritize them
       const img = new window.Image();
-      img.src = `/Q${nextQuestion + 1}.png`;
+      img.src = `/Q${index + 1}.png`;
+      
+      img.onload = () => {
+        setPreloadedImages(prev => ({
+          ...prev,
+          [index + 1]: true
+        }));
+      };
+      
+      preloadedStatus[index + 1] = false;
+    });
+    
+    setPreloadedImages(preloadedStatus);
+  }, [quizData]);
+  
+  useEffect(() => {
+    // Reset loading state when current question changes
+    if (preloadedImages[currentQuestion + 1]) {
+      setImageLoading(false);
+    } else {
+      setImageLoading(true);
     }
-  }, [currentQuestion, quizData]);
+  }, [currentQuestion, preloadedImages]);
 
   if (isLoading || !quizData) {
     return <QuizContainer>Loading quiz...</QuizContainer>;
