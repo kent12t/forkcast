@@ -41,6 +41,8 @@ npm run dev
 yarn dev
 ```
 
+3b. Database (optional locally, needed to record quiz results): create a free [Neon](https://neon.tech) Postgres project, run `db/schema.sql` in its SQL editor, and set `DATABASE_URL` (see `.env.example`) in `.env.local` and in Vercel project env vars. To import old Supabase data: `DATABASE_URL=... node scripts/import-quiz-results.mjs quiz_results.csv`
+
 4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application
 
 ## Tech Stack

@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react";
 import quizData from "@/data/quiz.json";
-import { startQuizAttempt, completeQuizAttempt } from "@/lib/supabase";
+import { startQuizAttempt, completeQuizAttempt } from "@/lib/quiz-api";
 
 type Option = {
   id: string;
