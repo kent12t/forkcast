@@ -41,7 +41,7 @@ const records = data.map(r => {
     completed_at: o.completed_at || null,
     personality_type: o.personality_type ?? '',
     session_id: o.session_id,
-    completed: String(o.completed).toLowerCase() === 'true',
+    completed: ['true', 't', '1'].includes(String(o.completed).trim().toLowerCase()),
   }
 })
 
@@ -52,7 +52,10 @@ await sql.query(
    FROM json_to_recordset($1::json) AS t(
      id bigint, created_at timestamptz, completed_at timestamptz,
      personality_type text, session_id text, completed boolean)
-   ON CONFLICT (id) DO NOTHING`,
+   ON CONFLICT (id) DO UPDATE SET
+     created_at = EXCLUDED.created_at, completed_at = EXCLUDED.completed_at,
+     personality_type = EXCLUDED.personality_type, session_id = EXCLUDED.session_id,
+     completed = EXCLUDED.completed`,
   [JSON.stringify(records)]
 )
 await sql.query(`SELECT setval(pg_get_serial_sequence('quiz_results','id'), COALESCE((SELECT MAX(id) FROM quiz_results), 1))`)
